@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\PostsController;
-use App\Http\Middleware\Honeypot;
+use App\Honeypot\SpamBlocker;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ Route::get('/posts/create', [PostsController::class, 'create'])
     ->name('posts.create');
 
 Route::post('/posts', [PostsController::class, 'store'])
-    ->middleware(['auth', Honeypot::class])
+    ->middleware(['auth', SpamBlocker::class])
     ->name('posts');
 
 Route::get('/dashboard', function () {
